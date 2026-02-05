@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test de Localisation GPS</title>
+</head>
+<body>
+    <h2>Où suis-je ?</h2>
+    <p>Clique sur le bouton pour voir ta position réelle (GPS).</p>
+    
+    <button onclick="trouverPositionPrecise()">Localiser ma rue</button>
+
+    <p id="affichage"></p>
+
+    <script>
+        function trouverPositionPrecise() {
+            const affichage = document.getElementById("affichage");
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        affichage.innerHTML = "Ta position exacte : <br>Lat: " + lat + "<br>Long: " + lon + 
+                        "<br><br><a href='https://www.google.com/maps?q=" + lat + "," + lon + "' target='_blank'>Voir sur Google Maps</a>";
+                    }, 
+                    (error) => {
+                        affichage.innerHTML = "Erreur : Tu as refusé l'accès au GPS.";
+                    },
+                    { enableHighAccuracy: true }
+                );
+            }
+        }
+    </script>
+</body>
+</html>
